@@ -24,8 +24,8 @@ private:
 	Certs
 	*/
 
-	TokenObject **objectList = NULL;
-	size_t objectCount = 0;
+	ObjectCertificate **certList = NULL;
+	size_t certCount = 0;
 
 public:
 	TokenManager(PKCS11Library* library, TokenSlot* tokenSlot, TokenSession* session);
@@ -44,8 +44,8 @@ public:
 	///////////////////////////ded//////////////////////////////////////////
 
 	CK_RV retrieveTokenObjects();
-	TokenObject** getObjects();
-	size_t getObjectCount();
+	ObjectCertificate** getCertificates();
+	size_t getCertificatesCount();
 
 };
 

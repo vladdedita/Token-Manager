@@ -38,6 +38,8 @@ TokenObject::TokenObject(CK_SESSION_HANDLE session, CK_OBJECT_HANDLE obj)
 
 	printf("OK");
 }
+
+
 ObjectCertificate* TokenObject::getCertificate()
 {
 	return this->cert;
@@ -45,106 +47,6 @@ ObjectCertificate* TokenObject::getCertificate()
 void TokenObject::listPubObjects()
 {
 }
-
-
-
-
-//void TokenObject::listPubObjects()
-//{
-//	CK_RV rv = CKR_OK;
-//	
-//	CK_OBJECT_CLASS		certClass = CKO_CERTIFICATE;
-//	CK_CERTIFICATE_TYPE certType = CKC_X_509;
-//	CK_BBOOL			isToken = true;
-//	CK_BYTE_PTR			subject = NULL_PTR;
-//	CK_BYTE_PTR			id = NULL_PTR;
-//	CK_BYTE				certificateValue[2048];
-//
-//	CK_BYTE_PTR value;
-//	CK_ULONG value_len;
-//
-//	CK_OBJECT_HANDLE	hObject[MAX_COUNT]; // pt rezultatele cautarii 
-//	CK_ULONG			objectFound = 0;
-//
-//
-//	CK_ATTRIBUTE objTemplate[]{
-//
-//		{
-//			CKA_CLASS ,&certClass,sizeof(certClass)
-//		},
-//		{
-//			CKA_TOKEN, &isToken, sizeof(isToken)
-//		}
-//
-//	};
-//
-//	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	/////////////////////////////////////		Cert search 		////////////////////////////////////////////////////////////
-//	
-//			//Certificate Data template
-//				CK_ATTRIBUTE valueTemplate[]{
-//					{
-//						CKA_VALUE,NULL_PTR,0
-//					}
-//				};
-//
-//			value_len = (CK_ULONG)valueTemplate[0].ulValueLen;
-//			value = new BYTE[value_len];
-//			valueTemplate[0].pValue = value;
-//
-//			rv = pC_GetAttributeValue(this->hSession, hObject[i], &valueTemplate[0], sizeof(valueTemplate) / sizeof(CK_ATTRIBUTE));
-//			
-//
-//			//////////////////////////////////////////////////////////////////////////unix asn1
-//		
-//			unsigned char * valueRawData = (unsigned char*)malloc(value_len * sizeof(unsigned char));
-//			memcpy(valueRawData, value, value_len);
-//			X509 *certX509 = d2i_X509(NULL, (const unsigned char**)&valueRawData, value_len);
-//			//X509* certX509 = PEM_read_bio_X509(certBio, NULL, NULL, NULL);
-////
-////			assert(certX509, NULL, "Could not write X509 cert");
-////			
-////						
-////			
-////
-////
-////
-////
-////			
-////			
-////			free(buf);
-////
-////
-////			
-////			printf("\nVersion: %d", version);
-////
-////
-////			//Signature Algo
-////
-////			
-//////			printf("\nPub key:%s\0", getPublicKey(certX509));
-////			
-////			printf("\nValidity:%s", getValidityPeriod(certX509));
-//
-//
-//	//	}
-//
-//
-//
-//	//}
-//	//printf("\nClosing sesssion...");
-//	//rv = pC_FindObjectsFinal(this->hSession);
-//	//if (rv != CKR_OK)
-//	//{
-//	//	printf("ERROR Final");
-//	//	return;
-//
-//	//}
-//	printf("OK");
-//
-//}
-//
-//
 
 
 
@@ -169,7 +71,7 @@ CK_RV TokenObject::getCertObject() {
 
 
 	//Decode Raw Cert Data to X509
-	cert = new ObjectCertificate((char*)value, value_len);
+	//cert = new ObjectCertificate((char*)value, value_len);
 	
 	return CKR_OK;
 
@@ -339,8 +241,86 @@ CK_RV TokenObject::createKeyPair()
 
 }
 
-
-
+//CK_ATTRIBUTE* getAttribute(CK_OBJECT_HANDLE hObject, CK_SESSION_HANDLE session, CK_ATTRIBUTE* templateAttributeInitial, int len)
+//{
+//	CK_RV rv;
+//	CK_ATTRIBUTE* templateAttribute = (CK_ATTRIBUTE*)malloc(len * sizeof(CK_ATTRIBUTE));
+//	for (int i = 0; i < len; i++)
+//	{
+//		templateAttribute[i].type = templateAttributeInitial[i].type;
+//		templateAttribute[i].pValue = NULL;
+//		templateAttribute[i].ulValueLen = 0;
+//	}
+//
+//	CK_LONG* value_len = (CK_LONG*)malloc(sizeof(CK_LONG)*len);
+//	CK_BYTE_PTR* pValue = (CK_BYTE_PTR*)malloc(sizeof(CK_BYTE_PTR)*len);
+//
+//	rv =  pFunctionList->C_GetAttributeValue(session, hObject, templateAttribute, len);
+//	if (rv == CKR_OK)
+//	{
+//		for (int i = 0; i < len; i++)
+//		{
+//			value_len[i] = (CK_LONG)templateAttribute[i].ulValueLen;
+//			pValue[i] = new BYTE[value_len[i]];
+//			templateAttribute[i].pValue = pValue[i];
+//			templateAttribute[i].ulValueLen = value_len[i];
+//		}
+//
+//		rv = pFunctionList->C_GetAttributeValue(session, hObject, templateAttribute, len);
+//		if (rv == CKR_OK)
+//		{
+//			return templateAttribute;
+//
+//		}
+//		else
+//		{
+//			throw rv;
+//		}
+//	}
+//
+//	else
+//	{
+//		throw rv;
+//	}
+//
+//	return NULL;
+//}
+//
+//
+//CK_RV TokenObject::getPrivateKeyObject() {
+//
+//	CK_RV rv;
+//	CK_OBJECT_CLASS keyClass = CKO_PRIVATE_KEY;
+//	CK_ATTRIBUTE keyTemplate[] = {
+//		{ CKA_CLASS, &keyClass, sizeof(keyClass) }
+//	};
+//
+//	rv = pC_FindObjectsInit(hSession,keyTemplate, 1);
+//
+//	if (rv == CKR_OK)
+//	{
+//		rv = pC_FindObjects(hSession, hObject, 100, &ulObjectCount);
+//		if (rv != CKR_OK)
+//		{
+//			printf("Eroare la citirea obiectelor\n");
+//			throw rv;
+//		}
+//
+//		rv = pFunctionList->C_FindObjectsFinal(hSession);
+//	}
+//	else
+//	{
+//		throw rv;
+//	}
+//
+//	CK_OBJECT_HANDLE *cheiPrivate = (CK_OBJECT_HANDLE*)malloc(ulObjectCount * sizeof(CK_OBJECT_HANDLE));
+//	for (int i = 0; i < ulObjectCount; i++)
+//	{
+//		cheiPrivate[i] = hObject[i];
+//	}
+//
+//
+//}
 
 /*
 Get Certificates stored on token

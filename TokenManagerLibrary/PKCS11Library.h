@@ -18,6 +18,7 @@ public:
 	int incarcaLibrarie(char* numeLibrarie);
 	int freeLibrarie();
 	CK_FUNCTION_LIST_PTR getFunctionList();
+
 	CK_VOID_PTR static getFunction(LPCSTR functionName);
 	
 };

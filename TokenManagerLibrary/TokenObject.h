@@ -12,8 +12,7 @@ class TKN_API TokenObject {
 
 private:
 
-	CK_SLOT_ID slotId;
-	CK_TOKEN_INFO info;
+	
 	CK_SESSION_HANDLE hSession;
 	CK_OBJECT_HANDLE hObject;
 
@@ -28,9 +27,15 @@ private:
 
 
 	
-	void listKey(CK_OBJECT_HANDLE hKey);
+	void listKey(CK_OBJECT_HANDLE hKey);                                                                                                                                                                                                                                                
+
 	CK_RV getCertObject();
+	CK_RV getPrivateKeyObject();
+
+
 	ObjectCertificate *cert;
+	char* privateKey;
+	
 public:
 
 
@@ -39,10 +44,13 @@ public:
 	void listPubObjects();
 	CK_RV createKeyPair();
 	void readKeys();
+
 	
 
 
 };
+
+
 
 
 #endif
