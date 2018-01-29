@@ -153,8 +153,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cryptoki.h" />
+    <ClInclude Include="cToken.h" />
     <ClInclude Include="defined_tkn_mgr_header.h" />
     <ClInclude Include="ObjectCertificate.h" />
+    <ClInclude Include="ObjectKey.h" />
+    <ClInclude Include="ObjectPrivateKey.h" />
+    <ClInclude Include="ObjectSymmetricKey.h" />
     <ClInclude Include="pkcs11.h" />
     <ClInclude Include="pkcs11f.h" />
     <ClInclude Include="PKCS11Library.h" />
@@ -169,8 +173,12 @@
     <ClInclude Include="TokenSlot.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cToken.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="ObjectCertificate.cpp" />
+    <ClCompile Include="ObjectKey.cpp" />
+    <ClCompile Include="ObjectPrivateKey.cpp" />
+    <ClCompile Include="ObjectSymmetricKey.cpp" />
     <ClCompile Include="PKCS11Library.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -183,6 +191,9 @@
     <ClCompile Include="TokenManager.cpp" />
     <ClCompile Include="TokenSession.cpp" />
     <ClCompile Include="TokenSlot.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

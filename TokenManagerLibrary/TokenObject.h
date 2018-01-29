@@ -38,7 +38,6 @@ private:
 	
 public:
 
-
 	TokenObject(CK_SESSION_HANDLE session, CK_OBJECT_HANDLE);
 	ObjectCertificate *getCertificate();
 	void listPubObjects();

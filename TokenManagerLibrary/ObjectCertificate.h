@@ -41,6 +41,8 @@ public:
 	char *getValidityPeriod();
 	char *getPem();
 
+	CK_OBJECT_HANDLE getObjectId();
+	
 
 
 };

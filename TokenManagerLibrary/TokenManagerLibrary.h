@@ -13,5 +13,7 @@ Acest header il folosim in aplicatia principala sau de test
 #include "TokenManager.h"
 #include "TokenKey.h"
 #include "TokenObject.h"
+#include "ObjectPrivateKey.h"
+#include "ObjectSymmetricKey.h"
 
 #endif

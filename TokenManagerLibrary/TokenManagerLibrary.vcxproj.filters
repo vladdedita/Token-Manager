@@ -69,6 +69,18 @@
     <ClInclude Include="ObjectCertificate.h">
       <Filter>Header Files\classes</Filter>
     </ClInclude>
+    <ClInclude Include="cToken.h">
+      <Filter>Header Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectKey.h">
+      <Filter>Header Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPrivateKey.h">
+      <Filter>Header Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectSymmetricKey.h">
+      <Filter>Header Files\classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -98,5 +110,22 @@
     <ClCompile Include="ObjectCertificate.cpp">
       <Filter>Source Files\classes</Filter>
     </ClCompile>
+    <ClCompile Include="cToken.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectKey.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPrivateKey.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectSymmetricKey.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -6,6 +6,10 @@
 #include "PKCS11Library.h"
 #include "TokenSession.h"
 #include "TokenObject.h"
+
+#include "ObjectPrivateKey.h"
+#include "ObjectSymmetricKey.h"
+
 /*
 Pentru tudor
 */
@@ -21,11 +25,21 @@ private:
 
 
 	/*
-	Certs
+	Objects
 	*/
 
-	ObjectCertificate **certList = NULL;
-	size_t certCount = 0;
+	ObjectCertificate **certList; //certificates
+	size_t certCount;
+
+	ObjectPrivateKey **keyList; //private keys
+	size_t keyCount;
+
+	ObjectSymmetricKey **symmetricKeyList; //symmetric keys
+	size_t sKeyCount;
+
+	CK_RV retrieveCerts();
+	CK_RV retrievePrivateKeys();
+	CK_RV retrieveSymmetricKeys();
 
 public:
 	TokenManager(PKCS11Library* library, TokenSlot* tokenSlot, TokenSession* session);
@@ -46,6 +60,14 @@ public:
 	CK_RV retrieveTokenObjects();
 	ObjectCertificate** getCertificates();
 	size_t getCertificatesCount();
+
+	ObjectPrivateKey** getKeys();
+	size_t getKeysCount();
+
+	ObjectSymmetricKey **getSymmetricKeys();
+	size_t getSymmetricKeysCount();
+
+	CK_RV deleteObject(unsigned int i);
 
 };
 
